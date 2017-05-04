@@ -7,16 +7,34 @@
 //
 
 import UIKit
+import UserNotifications // 通知用ライブラリ
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+// フォアグラウンド通知を実行する為 UNUserNotificationCenterDelegate を追加
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        // アプリ起動時に呼ばれる
+
+        // ユーザーに通知の許可を求める
+        let center = UNUserNotificationCenter.current() // インスタンス作成
+        center.requestAuthorization(options: [.alert, .sound]) { (granted, error) in // 「通知」「音」の許可を求める
+            // 承認に基づいて機能を有効または無効にする
+        }
+        
+        // 通知処理をデリゲート
+        center.delegate = self
+        
         return true
+    }
+    
+    // アプリがフォアグラウンドの時に通知を受け取ると呼ばれるメソッド
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.sound, .alert])
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
