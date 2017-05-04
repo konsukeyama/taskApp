@@ -34,7 +34,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         searchCategory.delegate = self // 検索バーをデリゲート
         searchCategory.showsCancelButton = true // キャンセルボタン：有効
         searchCategory.showsSearchResultsButton = false // 検索結果ボタン[▼]：有効
-        searchCategory.enablesReturnKeyAutomatically = false // 入力値が空でも検索を有効にする
+        searchCategory.enablesReturnKeyAutomatically = false // 入力値が空で検索させない：無効
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,21 +43,22 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     //--- 検索バーまわりのメソッド
-    // 検索ボタンが押下
+    // 検索ボタン押下時に呼ばれる
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.view.endEditing(true) // キーボード閉じる
+        view.endEditing(true) // キーボード閉じる
         if searchCategory.text != nil {
             if searchCategory.text == "" {
-                // 検索内容が空の場合
+                // 検索内容が空の場合、DB内の全件を取得
                 taskArray = try! Realm().objects(Task.self).sorted(byProperty: "date", ascending: false)
             } else {
-                // 検索内容が空でない場合、DB内のカテゴリと該当するレコードを取得する
+                // 検索内容が空でない場合、DB内の該当するカテゴリのレコードを取得
                 taskArray = try! Realm().objects(Task.self).filter("category = %@", searchCategory.text!).sorted(byProperty: "date", ascending: false)
             }
         }
         self.tableView.reloadData() // テーブル内容を更新
     }
-    // キャンセルボタン押下
+
+    // キャンセルボタン押下時に呼ばれる
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         view.endEditing(true) // キーボード閉じる
     }
@@ -69,16 +70,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         
         // segue判定
         if segue.identifier == "cellSegue" {
-            // 既存タスクのデータ
+            // 既存タスクの編集
             let indexPath = self.tableView.indexPathForSelectedRow // 選択状態のセル
             inputViewController.task = taskArray[indexPath!.row] // ここで渡す
         } else {
-            // 新規タスクのデータ
+            // 新規タスクの追加
             let task = Task()
-            task.date = NSDate() // 現在日時の取得
+            task.date = NSDate() // 現在日時の取得（遷移先でちゃんと日本時間になるのはナゼ...？）
             
             if taskArray.count != 0 {
-                // DBが0件でない場合、DBのレコード数+1を新規idとして払い出す
+                // DBが0件でない場合、既存レコード数+1を新規idとして払い出す
                 task.id = taskArray.max(ofProperty: "id")! + 1
             }
             inputViewController.task = task // ここで渡す
@@ -116,7 +117,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     //--- UITableViewDelegate のメソッド
-    // 各セルを選択した時に実行さえるメソッド
+    // 各セルを選択した時に実行されるメソッド
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         // セルをタップで編集画面へ遷移
         performSegue(withIdentifier: "cellSegue", sender: nil)
@@ -133,11 +134,11 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             // 削除されたタスクを取得する
             let task = self.taskArray[indexPath.row]
             
-            // ローカル通知をキャンセルする
+            // 削除されたタスクのローカル通知を削除する
             let center = UNUserNotificationCenter.current() // 通知を登録
             center.removePendingNotificationRequests(withIdentifiers: [String(task.id)]) // 削除したタスクidの通知を削除
 
-            // DBからタスクを削除する（アニメーション削除）
+            // DBからタスクを削除する（アニメーション付き）
             try! realm.write {
                 self.realm.delete(self.taskArray[indexPath.row])
                 tableView.deleteRows(at: [indexPath as IndexPath], with: UITableViewRowAnimation.fade)
