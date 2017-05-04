@@ -50,6 +50,7 @@ class InputViewController: UIViewController {
     }
     
     // 画面が閉じられる際に呼ばれるメソッド
+    /*
     override func viewWillDisappear(_ animated: Bool) {
         // DBをアップデートする
         try! realm.write {
@@ -57,15 +58,16 @@ class InputViewController: UIViewController {
             self.task.title = self.titleTextField.text!       // タイトル
             self.task.contents = self.contentsTextView.text   // 内容
             self.task.date = self.datePicker.date as NSDate   // 日付
-            self.realm.add(self.task, update: true)
+            self.realm.add(self.task, update: true) // 更新する
         }
         
         // ローカル通知を登録
         setNotification(task: task)
         
         // 画面を閉じる
-        // super.viewWillDisappear(animated)
+        super.viewWillDisappear(animated)
     }
+    */
     
     // キーボードを閉じる
     func dismissKeyboard() {
@@ -100,8 +102,8 @@ class InputViewController: UIViewController {
         // 4.ローカル通知を登録
         let center = UNUserNotificationCenter.current() // 通知を登録
         center.add(request) { (error) in // 通知を実行し、エラーならコンソールにエラーを出力する
-            if let err = error { // エラーがあれば出力する
-                print(err)
+            if let errMsg = error { // エラーがあれば出力する
+                print(errMsg)
             }
         }
         
@@ -114,6 +116,21 @@ class InputViewController: UIViewController {
             }
         }
     }
+    
+    @IBAction func insertTask(_ sender: Any) {
+        // DBをアップデートする
+        try! realm.write {
+            self.task.category = self.categoryTextField.text! // カテゴリ
+            self.task.title = self.titleTextField.text!       // タイトル
+            self.task.contents = self.contentsTextView.text   // 内容
+            self.task.date = self.datePicker.date as NSDate   // 日付
+            self.realm.add(self.task, update: true) // 更新する
+        }
+        
+        // ローカル通知を登録
+        setNotification(task: task)
+    }
+
 
     /*
      // MARK: - Navigation
