@@ -71,19 +71,19 @@
                     <navigationItem key="navigationItem" id="U43-ti-I8k">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="FWj-8L-zLR">
                             <connections>
-                                <segue destination="MuI-t5-5m2" kind="show" id="oqa-WI-b61"/>
+                                <segue destination="MuI-t5-5m2" kind="show" id="YLE-na-IzD"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="searchCategory" destination="7WX-WC-dV3" id="n0c-mP-SnV"/>
-                        <outlet property="tableView" destination="UBE-Th-2dg" id="esd-IQ-le2"/>
-                        <segue destination="MuI-t5-5m2" kind="show" identifier="cellSegue" id="sFT-e7-Pm7"/>
+                        <outlet property="tableView" destination="UBE-Th-2dg" id="gHR-BK-45r"/>
+                        <segue destination="MuI-t5-5m2" kind="show" identifier="cellSegue" id="Ic8-rz-GJY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1069.5999999999999" y="122.78860569715144"/>
+            <point key="canvasLocation" x="1551" y="111"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jBJ-rs-zvK">
@@ -101,12 +101,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CxH-xW-KkU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="116" y="776.76161919040487"/>
+            <point key="canvasLocation" x="783" y="777"/>
         </scene>
         <!--input View Controller-->
         <scene sceneID="FVz-ef-KDv">
             <objects>
-                <viewController id="MuI-t5-5m2" userLabel="input View Controller" customClass="InputViewController" customModule="taskApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="MuI-t5-5m2" userLabel="input View Controller" customClass="InputViewController" customModule="taskApp" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0Tz-dm-uM0"/>
                         <viewControllerLayoutGuide type="bottom" id="ftA-qi-yyW"/>
@@ -172,12 +172,23 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="22K-jZ-5O0">
+                                <rect key="frame" x="130" y="467" width="114" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="[ タスク追加 ]"/>
+                                <connections>
+                                    <action selector="insertTask:" destination="MuI-t5-5m2" eventType="touchUpInside" id="0vA-yv-haV"/>
+                                    <segue destination="sYd-dK-ktI" kind="unwind" unwindAction="unwindWithSegue:" id="xBZ-eo-cuV"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Jqf-Ib-BRg" firstAttribute="leading" secondItem="8CL-56-Dfu" secondAttribute="leading" id="0ux-B7-Jpq"/>
                             <constraint firstItem="rWs-jB-Kvp" firstAttribute="top" secondItem="QDc-qA-O0O" secondAttribute="bottom" constant="10" id="4ys-mt-CgN"/>
+                            <constraint firstItem="22K-jZ-5O0" firstAttribute="centerX" secondItem="8CL-56-Dfu" secondAttribute="centerX" id="E7M-bC-dVM"/>
                             <constraint firstItem="rWs-jB-Kvp" firstAttribute="leading" secondItem="8CL-56-Dfu" secondAttribute="leadingMargin" id="HbX-LA-q9r"/>
+                            <constraint firstItem="22K-jZ-5O0" firstAttribute="top" secondItem="Jqf-Ib-BRg" secondAttribute="bottom" constant="10" id="Kkb-Qa-KvM"/>
                             <constraint firstItem="Kue-dM-vgd" firstAttribute="leading" secondItem="8CL-56-Dfu" secondAttribute="leadingMargin" id="Tuq-kv-IvU"/>
                             <constraint firstItem="QDc-qA-O0O" firstAttribute="top" secondItem="d1F-ZN-vq2" secondAttribute="bottom" constant="10" id="Ure-It-sjF"/>
                             <constraint firstItem="d1F-ZN-vq2" firstAttribute="leading" secondItem="8CL-56-Dfu" secondAttribute="leadingMargin" id="VmE-GI-1t9"/>
@@ -195,6 +206,15 @@
                             <constraint firstItem="Jqf-Ib-BRg" firstAttribute="top" secondItem="dz0-Lj-evY" secondAttribute="bottom" constant="10" id="uJd-eX-zhp"/>
                         </constraints>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="vKY-S7-57e">
+                        <barButtonItem key="rightBarButtonItem" title="カテゴリ編集" id="qzD-Tz-nmf">
+                            <connections>
+                                <segue destination="XRZ-5k-nUw" kind="show" id="f22-KA-VFZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="categoryTextField" destination="QDc-qA-O0O" id="pYr-fl-mPZ"/>
                         <outlet property="contentsTextView" destination="dz0-Lj-evY" id="5PJ-8X-nKc"/>
@@ -203,11 +223,101 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kDF-34-QEF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="sYd-dK-ktI" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1804" y="123"/>
+            <point key="canvasLocation" x="2665" y="123"/>
+        </scene>
+        <!--Category Input View Controller-->
+        <scene sceneID="n4z-NY-vi3">
+            <objects>
+                <viewController id="XRZ-5k-nUw" customClass="CategoryInputViewController" customModule="taskApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ymk-r0-7xV"/>
+                        <viewControllerLayoutGuide type="bottom" id="raI-vP-Dyt"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="IgF-iA-qe5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="カテゴリ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ts6-ht-jOH">
+                                <rect key="frame" x="16" y="74" width="69.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VOp-Y8-aOX">
+                                <rect key="frame" x="16" y="105" width="343" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xUa-3b-GhJ">
+                                <rect key="frame" x="124.5" y="145" width="125" height="33"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="[ カテゴリ追加 ]"/>
+                                <connections>
+                                    <action selector="insertCategory:" destination="XRZ-5k-nUw" eventType="touchUpInside" id="mwT-47-aMI"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fhj-NX-XTo">
+                                <rect key="frame" x="0.0" y="188" width="375" height="435"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="nAW-66-ra5">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nAW-66-ra5" id="4Mn-cL-WaU">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="VOp-Y8-aOX" firstAttribute="leading" secondItem="IgF-iA-qe5" secondAttribute="leadingMargin" id="Dgf-Yf-Fu5"/>
+                            <constraint firstItem="ts6-ht-jOH" firstAttribute="leading" secondItem="IgF-iA-qe5" secondAttribute="leadingMargin" id="EhS-K0-NKk"/>
+                            <constraint firstItem="xUa-3b-GhJ" firstAttribute="top" secondItem="VOp-Y8-aOX" secondAttribute="bottom" constant="10" id="Fx5-Sb-0Rr"/>
+                            <constraint firstItem="VOp-Y8-aOX" firstAttribute="top" secondItem="ts6-ht-jOH" secondAttribute="bottom" constant="10" id="bNj-AL-Nhv"/>
+                            <constraint firstItem="fhj-NX-XTo" firstAttribute="leading" secondItem="IgF-iA-qe5" secondAttribute="leading" id="bQX-CI-Z3h"/>
+                            <constraint firstItem="ts6-ht-jOH" firstAttribute="top" secondItem="ymk-r0-7xV" secondAttribute="bottom" constant="10" id="cdC-UL-ISL"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="VOp-Y8-aOX" secondAttribute="trailing" id="l7D-oh-n36"/>
+                            <constraint firstItem="raI-vP-Dyt" firstAttribute="top" secondItem="fhj-NX-XTo" secondAttribute="bottom" id="nMf-kJ-ZsQ"/>
+                            <constraint firstAttribute="trailing" secondItem="fhj-NX-XTo" secondAttribute="trailing" id="tyL-US-RPw"/>
+                            <constraint firstItem="xUa-3b-GhJ" firstAttribute="centerX" secondItem="IgF-iA-qe5" secondAttribute="centerX" id="z6g-kp-OQp"/>
+                            <constraint firstItem="fhj-NX-XTo" firstAttribute="top" secondItem="xUa-3b-GhJ" secondAttribute="bottom" constant="10" id="zqp-Dw-JAi"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="categoryNameField" destination="VOp-Y8-aOX" id="zAk-a5-iBK"/>
+                        <outlet property="categoryView" destination="fhj-NX-XTo" id="2c7-kO-83D"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aIf-yG-KLm" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3439" y="123"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="gkc-gk-rjI">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yrd-hd-lOK" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VuV-Qu-qbb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="MuI-t5-5m2" kind="relationship" relationship="rootViewController" id="P6I-oR-6s9"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jdv-Gr-7Q4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1833" y="777"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="oqa-WI-b61"/>
+        <segue reference="Ic8-rz-GJY"/>
     </inferredMetricsTieBreakers>
 </document>

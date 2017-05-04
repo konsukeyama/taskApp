@@ -75,7 +75,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             inputViewController.task = taskArray[indexPath!.row] // ここで渡す
         } else {
             // 新規タスクの追加
-            let task = Task()
+            let task = Task() // クラスオブジェクトの初期化
             task.date = NSDate() // 現在日時の取得（遷移先でちゃんと日本時間になるのはナゼ...？）
             
             if taskArray.count != 0 {
@@ -86,11 +86,10 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         }
     }
     
-    // 入力画面から戻ってきた際に呼ばれる
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
+    // タスク追加画面から戻ってきた際に呼ばれる
+    @IBAction func unwind(segue: UIStoryboardSegue) {
         // テーブルビューを更新する
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
 
     //--- UITableViewDataSource のメソッド
@@ -129,7 +128,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
 
     // Delete ボタンが押された時に呼ばれるメソッド
-    func tableView(_ taleView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCellEditingStyle.delete {
             // 削除されたタスクを取得する
             let task = self.taskArray[indexPath.row]
