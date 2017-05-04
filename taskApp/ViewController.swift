@@ -15,7 +15,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchCategory: UISearchBar!
 
-    // Realmインスタンスを取得する・・・・
+    // Realmインスタンスを取得する
     let realm = try! Realm()
 
     // DB内のタスクが格納されるリスト（日付の降順でソート）
