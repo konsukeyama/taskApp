@@ -116,19 +116,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="タイトル" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWs-jB-Kvp">
-                                <rect key="frame" x="16" y="145" width="70" height="21"/>
+                                <rect key="frame" x="16" y="195" width="70" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="タイトル" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Kue-dM-vgd">
-                                <rect key="frame" x="16" y="176" width="343" height="30"/>
+                                <rect key="frame" x="16" y="226" width="343" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="dz0-Lj-evY">
-                                <rect key="frame" x="16" y="247" width="343" height="80"/>
+                                <rect key="frame" x="16" y="297" width="343" height="80"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="ghg-c8-2iN"/>
@@ -146,7 +146,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textView>
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Jqf-Ib-BRg">
-                                <rect key="frame" x="0.0" y="337" width="375" height="120"/>
+                                <rect key="frame" x="0.0" y="387" width="375" height="120"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="120" id="RNR-JG-Hr1"/>
                                 </constraints>
@@ -155,7 +155,7 @@
                                 </date>
                             </datePicker>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="内容" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NXc-mm-Rd5">
-                                <rect key="frame" x="16" y="216" width="35" height="21"/>
+                                <rect key="frame" x="16" y="266" width="35" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -166,44 +166,44 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QDc-qA-O0O">
-                                <rect key="frame" x="16" y="105" width="343" height="30"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="22K-jZ-5O0">
-                                <rect key="frame" x="130" y="467" width="114" height="34"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <rect key="frame" x="124" y="517" width="126" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="[ タスク追加 ]"/>
                                 <connections>
                                     <action selector="insertTask:" destination="MuI-t5-5m2" eventType="touchUpInside" id="0vA-yv-haV"/>
                                     <segue destination="sYd-dK-ktI" kind="unwind" unwindAction="unwindWithSegue:" id="xBZ-eo-cuV"/>
                                 </connections>
                             </button>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4eu-PH-bAr">
+                                <rect key="frame" x="0.0" y="95" width="375" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="dep-Sn-Q9V"/>
+                                </constraints>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Jqf-Ib-BRg" firstAttribute="leading" secondItem="8CL-56-Dfu" secondAttribute="leading" id="0ux-B7-Jpq"/>
-                            <constraint firstItem="rWs-jB-Kvp" firstAttribute="top" secondItem="QDc-qA-O0O" secondAttribute="bottom" constant="10" id="4ys-mt-CgN"/>
+                            <constraint firstAttribute="trailing" secondItem="4eu-PH-bAr" secondAttribute="trailing" id="5Nn-gS-WRv"/>
+                            <constraint firstItem="4eu-PH-bAr" firstAttribute="leading" secondItem="8CL-56-Dfu" secondAttribute="leading" id="7mq-AB-2RC"/>
                             <constraint firstItem="22K-jZ-5O0" firstAttribute="centerX" secondItem="8CL-56-Dfu" secondAttribute="centerX" id="E7M-bC-dVM"/>
                             <constraint firstItem="rWs-jB-Kvp" firstAttribute="leading" secondItem="8CL-56-Dfu" secondAttribute="leadingMargin" id="HbX-LA-q9r"/>
                             <constraint firstItem="22K-jZ-5O0" firstAttribute="top" secondItem="Jqf-Ib-BRg" secondAttribute="bottom" constant="10" id="Kkb-Qa-KvM"/>
+                            <constraint firstItem="rWs-jB-Kvp" firstAttribute="top" secondItem="4eu-PH-bAr" secondAttribute="bottom" id="Sj0-Wf-p5l"/>
                             <constraint firstItem="Kue-dM-vgd" firstAttribute="leading" secondItem="8CL-56-Dfu" secondAttribute="leadingMargin" id="Tuq-kv-IvU"/>
-                            <constraint firstItem="QDc-qA-O0O" firstAttribute="top" secondItem="d1F-ZN-vq2" secondAttribute="bottom" constant="10" id="Ure-It-sjF"/>
                             <constraint firstItem="d1F-ZN-vq2" firstAttribute="leading" secondItem="8CL-56-Dfu" secondAttribute="leadingMargin" id="VmE-GI-1t9"/>
                             <constraint firstItem="NXc-mm-Rd5" firstAttribute="leading" secondItem="8CL-56-Dfu" secondAttribute="leadingMargin" id="X5a-WX-Bi0"/>
                             <constraint firstAttribute="trailing" secondItem="Jqf-Ib-BRg" secondAttribute="trailing" id="YS0-9u-5bu"/>
                             <constraint firstItem="d1F-ZN-vq2" firstAttribute="top" secondItem="0Tz-dm-uM0" secondAttribute="bottom" constant="10" id="c9h-UJ-1B6"/>
                             <constraint firstAttribute="trailingMargin" secondItem="dz0-Lj-evY" secondAttribute="trailing" id="eV4-9z-M6l"/>
                             <constraint firstItem="dz0-Lj-evY" firstAttribute="top" secondItem="NXc-mm-Rd5" secondAttribute="bottom" constant="10" id="gDc-7O-cRC"/>
-                            <constraint firstItem="QDc-qA-O0O" firstAttribute="leading" secondItem="8CL-56-Dfu" secondAttribute="leadingMargin" id="hrZ-0c-59C"/>
                             <constraint firstItem="dz0-Lj-evY" firstAttribute="leading" secondItem="8CL-56-Dfu" secondAttribute="leadingMargin" id="lrh-bm-twN"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="QDc-qA-O0O" secondAttribute="trailing" id="q4D-mb-mYt"/>
                             <constraint firstItem="Kue-dM-vgd" firstAttribute="top" secondItem="rWs-jB-Kvp" secondAttribute="bottom" constant="10" id="rbK-Zr-aIE"/>
                             <constraint firstItem="NXc-mm-Rd5" firstAttribute="top" secondItem="Kue-dM-vgd" secondAttribute="bottom" constant="10" id="sXH-Cf-36N"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Kue-dM-vgd" secondAttribute="trailing" id="tBg-cr-Qpe"/>
                             <constraint firstItem="Jqf-Ib-BRg" firstAttribute="top" secondItem="dz0-Lj-evY" secondAttribute="bottom" constant="10" id="uJd-eX-zhp"/>
+                            <constraint firstItem="4eu-PH-bAr" firstAttribute="top" secondItem="d1F-ZN-vq2" secondAttribute="bottom" id="z0D-Td-jNM"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -216,7 +216,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="categoryTextField" destination="QDc-qA-O0O" id="pYr-fl-mPZ"/>
+                        <outlet property="categoryPicker" destination="4eu-PH-bAr" id="s5e-4X-Fo9"/>
                         <outlet property="contentsTextView" destination="dz0-Lj-evY" id="5PJ-8X-nKc"/>
                         <outlet property="datePicker" destination="Jqf-Ib-BRg" id="wNc-5y-hxb"/>
                         <outlet property="titleTextField" destination="Kue-dM-vgd" id="NKz-wd-M7B"/>
@@ -252,18 +252,18 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xUa-3b-GhJ">
-                                <rect key="frame" x="124.5" y="145" width="125" height="33"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="113.5" y="145" width="147" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="[ カテゴリ追加 ]"/>
                                 <connections>
                                     <action selector="insertCategory:" destination="XRZ-5k-nUw" eventType="touchUpInside" id="mwT-47-aMI"/>
                                 </connections>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="fhj-NX-XTo">
-                                <rect key="frame" x="0.0" y="188" width="375" height="435"/>
+                                <rect key="frame" x="0.0" y="191" width="375" height="432"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="nAW-66-ra5">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="nAW-66-ra5">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="nAW-66-ra5" id="4Mn-cL-WaU">
