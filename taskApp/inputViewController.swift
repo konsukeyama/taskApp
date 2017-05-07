@@ -110,12 +110,6 @@ class InputViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         self.selectCategory.text = categoryArray[pickerSelectRow]["name"] as? String
     }
     
-    /*
-    func CGRectMake(_ x: CGFloat, _ y: CGFloat, _ width: CGFloat, _ height: CGFloat) -> CGRect {
-        return CGRect(x: x, y: y, width: width, height: height)
-    }
- */
-    
     // キーボードを閉じる
     func dismissKeyboard() {
         view.endEditing(true)

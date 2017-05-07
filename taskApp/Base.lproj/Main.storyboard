@@ -103,7 +103,7 @@
         <!--Navigation Controller-->
         <scene sceneID="jBJ-rs-zvK">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="NBG-zg-S4C" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ViewController_Navi" automaticallyAdjustsScrollViewInsets="NO" id="NBG-zg-S4C" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="OLn-Ww-Xi1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -332,7 +332,7 @@
         <!--Navigation Controller-->
         <scene sceneID="gkc-gk-rjI">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="yrd-hd-lOK" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="InputViewController_Navi" automaticallyAdjustsScrollViewInsets="NO" id="yrd-hd-lOK" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="VuV-Qu-qbb">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -345,10 +345,10 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jdv-Gr-7Q4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1833" y="777"/>
+            <point key="canvasLocation" x="2097" y="777"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="YLE-na-IzD"/>
+        <segue reference="P6I-oR-6s9"/>
     </inferredMetricsTieBreakers>
 </document>
