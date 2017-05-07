@@ -14,18 +14,21 @@ class CategoryInputViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var categoryNameField: UITextField!
     @IBOutlet weak var categoryView: UITableView!
     
-    // var category: Category!
-
     // Realmインスタンスを取得する
     let realm = try! Realm()
 
-    // 以降内容をアップデートするとリスト内は自動的に更新される
-    var categoryArray = try! Realm().objects(Category.self)
+    // DBからデータを取得
+    var categoryArray = try! Realm().objects(Category.self) // カテゴリ
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        
+
+        // 背景タップで dismissKeyboard() を呼ぶ
+        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target:self, action:#selector(dismissKeyboard)) // tapGestureの初期化
+        self.view.addGestureRecognizer(tapGesture) // [self.view]が背景という意味
+
+        // テーブル初期設定
         categoryView.delegate = self
         categoryView.dataSource = self
     }
@@ -37,7 +40,6 @@ class CategoryInputViewController: UIViewController, UITableViewDelegate, UITabl
     
     // カテゴリ追加画面から戻る際に呼ばれる
     override func viewWillDisappear(_ animated: Bool) {
-        print("カテゴリ入力から戻るよ")
     }
 
     //--- UITableViewDataSource のメソッド
@@ -61,8 +63,6 @@ class CategoryInputViewController: UIViewController, UITableViewDelegate, UITabl
     //--- UITableViewDelegate のメソッド
     // 各セルを選択した時に実行されるメソッド
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        // セルをタップで編集画面へ遷移
-        // performSegue(withIdentifier: "cellSegue", sender: nil)
     }
     
     // セルが削除可能なことを伝えるメソッド
@@ -73,9 +73,6 @@ class CategoryInputViewController: UIViewController, UITableViewDelegate, UITabl
     // Delete ボタンが押された時に呼ばれるメソッド
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == UITableViewCellEditingStyle.delete {
-            // 削除されたカテゴリを取得する
-            let category = self.categoryArray[indexPath.row]
-            
             // DBからカテゴリを削除する（アニメーション付き）
             try! realm.write {
                 self.realm.delete(self.categoryArray[indexPath.row])
@@ -86,20 +83,28 @@ class CategoryInputViewController: UIViewController, UITableViewDelegate, UITabl
 
     // カテゴリを追加する
     @IBAction func insertCategory(_ sender: Any) {
-        if categoryNameField != nil {
+        if (categoryNameField != nil) && (categoryNameField.text != "") {
             let category = Category() // クラスオブジェクトの初期化
             if categoryArray.count != 0 {
-                // DBが0件でない場合、既存レコード数+1を新規idとして払い出す
+                // DBが0件でない場合、既存レコード数+1を新規idとして払い出す（疑似オートインクリメント）
                 category.id = categoryArray.max(ofProperty: "id")! + 1
             }
             // DBをアップデートする
             try! realm.write {
                 category.name = self.categoryNameField.text! // カテゴリ
-                self.realm.add(category, update: true) // 更新する
+                self.realm.add(category, update: true) // ここで更新
             }
+            self.categoryNameField.text = ""
+            self.dismissKeyboard()
+
             // カテゴリ一覧を更新する
             self.categoryView.reloadData()
         }
+    }
+    
+    // キーボードを閉じる
+    func dismissKeyboard() {
+        view.endEditing(true)
     }
 
     /*

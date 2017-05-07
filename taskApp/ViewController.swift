@@ -10,49 +10,93 @@ import UIKit
 import RealmSwift // Realm（DB）使用
 import UserNotifications // 通知用ライブラリ
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+// ピッカー利用のため UIPickerViewDelegate, UIPickerViewDataSource 継承
+class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var searchCategory: UISearchBar!
+    @IBOutlet weak var selectCategory: UITextField!
 
     // Realmインスタンスを取得する
     let realm = try! Realm()
+    
+    // ピッカー作成
+    var pickerView: UIPickerView = UIPickerView()
 
-    // DB内のタスクが格納されるリスト（日付の降順でソート）
-    // 以降内容をアップデートするとリスト内は自動的に更新される
-    var taskArray = try! Realm().objects(Task.self).sorted(byProperty: "date", ascending: false)
+    // DBからデータを取得
+    var taskArray = try! Realm().objects(Task.self).sorted(byProperty: "date", ascending: false) // タスク
+    let categoryArray = try! Realm().objects(Category.self)                                      // カテゴリ
+
+    // その他
+    var pickerSelectRow = 0 // 選択したピッカー行の保持用（doneで使用）
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+
         // テーブル初期設定
         tableView.delegate = self
         tableView.dataSource = self
+
+        // ピッカー初期設定
+        pickerView.delegate = self
+        pickerView.dataSource = self
+
+        let toolbar = UIToolbar(frame: CGRect(x: 0, y: 0, width: 0, height: 35)) // ツールバーの表示位置（inputAccessoryViewだと高さ以外効かない？）
+        let doneItem = UIBarButtonItem(title: "決定", style: .plain, target: self, action: #selector(self.done))          // 確定ボタン
+        let cancelItem = UIBarButtonItem(title: "キャンセル", style: .plain, target: self, action: #selector(self.cancel)) // キャンセルボタン
+        toolbar.setItems([doneItem, cancelItem], animated: true) // ツールバーにボタンを配置
         
-        // 検索バー初期設定
-        searchCategory.delegate = self // 検索バーをデリゲート
-        searchCategory.showsCancelButton = true // キャンセルボタン：有効
-        searchCategory.showsSearchResultsButton = false // 検索結果ボタン[▼]：有効
-        searchCategory.enablesReturnKeyAutomatically = false // 入力値が空で検索させない：無効
+        self.selectCategory.inputView = pickerView       // ソフトウェアキーボードをピッカーに変更
+        self.selectCategory.inputAccessoryView = toolbar // ツールバーを挿入
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    //--- ピッカー用メソッド
+    // 表示する列数
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    // ピッカーに表示する行数を返す
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return categoryArray.count
+    }
 
-    //--- 検索バーまわりのメソッド
-    // 検索ボタン押下時に呼ばれる
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        view.endEditing(true) // キーボード閉じる
-        if searchCategory.text != nil {
-            if searchCategory.text == "" {
-                // 検索内容が空の場合、DB内の全件を取得
+    // ピッカーに表示する値を返す
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return categoryArray[row]["name"] as? String
+    }
+    
+    // ピッカーが選択された際に呼ばれる
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        pickerSelectRow = row // 選択された行を保持
+    }
+
+    // キャンセルボタン押下
+    func cancel() {
+        self.selectCategory.endEditing(true)
+    }
+    
+    // 確定ボタン押下
+    func done() {
+        self.selectCategory.endEditing(true)
+        self.selectCategory.text = categoryArray[pickerSelectRow]["name"] as? String
+        searchTaskView() // タスクを取得
+    }
+
+    // DBから該当するタスクを取得＆表示する
+    func searchTaskView() {
+        if selectCategory.text != nil {
+            if selectCategory.text == "" {
+                // 検索内容が空の場合、DB内の全レコードを取得
                 taskArray = try! Realm().objects(Task.self).sorted(byProperty: "date", ascending: false)
             } else {
                 // 検索内容が空でない場合、DB内の該当するカテゴリのレコードを取得
-                taskArray = try! Realm().objects(Task.self).filter("category = %@", searchCategory.text!).sorted(byProperty: "date", ascending: false)
+                taskArray = try! Realm().objects(Task.self).filter("category = %@", selectCategory.text!).sorted(byProperty: "date", ascending: false)
             }
         }
         self.tableView.reloadData() // テーブル内容を更新
@@ -79,7 +123,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             task.date = NSDate() // 現在日時の取得（遷移先でちゃんと日本時間になるのはナゼ...？）
             
             if taskArray.count != 0 {
-                // DBが0件でない場合、既存レコード数+1を新規idとして払い出す
+                // DBが0件でない場合、既存レコード数+1を新規idとして払い出す（疑似オートインクリメント）
                 task.id = taskArray.max(ofProperty: "id")! + 1
             }
             inputViewController.task = task // ここで渡す
@@ -91,6 +135,13 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         // テーブルビューを更新する
         self.tableView.reloadData()
     }
+    
+    // タスク全件表示ボタン
+    @IBAction func crrentTaskView(_ sender: Any) {
+        self.selectCategory.text = ""
+        searchTaskView() // タスクを取得
+    }
+    
 
     //--- UITableViewDataSource のメソッド
     // データの数（=セルの数）を返すメソッド

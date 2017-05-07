@@ -10,7 +10,7 @@ import UIKit
 import UserNotifications // 通知用ライブラリ
 
 @UIApplicationMain
-// フォアグラウンド通知のため UNUserNotificationCenterDelegate を追加
+// フォアグラウンド通知のため UNUserNotificationCenterDelegate を継承
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
 
     var window: UIWindow?
